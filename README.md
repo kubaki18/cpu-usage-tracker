@@ -16,4 +16,4 @@ TODO
 TODO
 
 ## Credits
-TODO
+John Bode's [StackOverflow entry](https://stackoverflow.com/a/39048290)
