@@ -34,6 +34,9 @@ void Dequeue_Float() {
 }
 
 float *Front_Float() {
-    float *front = Front(float_queue);
-    return front;
+    if (float_queue->current_length > 0) {
+        float **front = Front(float_queue);
+        return *front;
+    }
+    return NULL;
 }
