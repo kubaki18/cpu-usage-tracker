@@ -17,10 +17,12 @@ target_include_directories(cut PRIVATE Meta)
 target_include_directories(cut PRIVATE Queue)
 target_include_directories(cut PRIVATE Reader)
 target_include_directories(cut PRIVATE Analyzer)
+target_include_directories(cut PRIVATE Printer)
 
 add_subdirectory(Meta)
 add_subdirectory(Queue)
 add_subdirectory(Reader)
 add_subdirectory(Analyzer)
+add_subdirectory(Printer)
 
 install(TARGETS cut)
