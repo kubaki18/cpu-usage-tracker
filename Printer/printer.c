@@ -16,7 +16,7 @@ void *InitPrinter(void *attr) {
         Dequeue_Float();
 
         for (unsigned int i = 0; i < cpu_core_count; i++) {
-            printf("[ CPU%d - %.2f%% ]", i, percentage[i]);
+            printf("[ CPU%d - %.2f%% ]", i, percentage[i] * 100);
         }
         printf("\n");
     }

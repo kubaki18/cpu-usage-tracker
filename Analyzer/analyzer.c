@@ -44,7 +44,6 @@ void *InitAnalyzer(void *attr) {
             non_idle_diff[i] = new_non_idle[i] - non_idle[i];
             percentage[i] = (float)non_idle_diff[i] / (idle_diff[i] + non_idle_diff[i]);
         }
-        printf("\n");
 
         Enqueue_Float(percentage);
     }
