@@ -28,8 +28,7 @@ void *InitReader(void *attr) {
         Enqueue_CPUSnapshot(times);
 
         fclose(stat_file);
-        printf("%llu\n", Front_CPUSnapshot()[0].user);
-        usleep(100000);
+        usleep(50000);
     }
 
     free(times);

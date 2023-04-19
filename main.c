@@ -10,10 +10,11 @@
 #include "string_queue.h"
 #include "reader.h"
 #include "analyzer.h"
+#include "printer.h"
 
 
 int main(void) {
-    pthread_t reader, analyzer;
+    pthread_t reader, analyzer, printer;
 
     cpu_core_count = CountCPUCores();
     cpu_snapshot_queue = CreateQueue_CPUSnapshot();
@@ -23,12 +24,11 @@ int main(void) {
 
     pthread_create(&analyzer, NULL, &InitAnalyzer, NULL);
 
-    sleep(2);
+    pthread_create(&printer, NULL, &InitPrinter, NULL);
 
     pthread_join(reader, NULL);
     pthread_join(analyzer, NULL);
-
-    analyzer_running = reader_running = false;
+    pthread_join(printer, NULL);
 
     DeleteQueue_CPUSnapshot();
     DeleteQueue_Float();
