@@ -11,9 +11,11 @@ typedef struct {
     unsigned int current_length;
     unsigned int rear;
     unsigned int front;
+    sem_t *sem_full;
+    sem_t *sem_empty;
     void **entries;
     void *(*copy)(void *);
-    void (*destroy)(void *);    // const void * (?)
+    void (*destroy)(void *);
 } Queue;
 
 Queue * CreateQueue(unsigned int max_length, void *(*copy)(void *), void (*destroy)(void *));
