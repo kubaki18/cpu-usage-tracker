@@ -14,11 +14,13 @@ add_executable(cut)
 target_sources(cut PRIVATE main.c)
 
 target_include_directories(cut PRIVATE Meta)
-target_include_directories(cut PRIVATE Reader)
 target_include_directories(cut PRIVATE Queue)
+target_include_directories(cut PRIVATE Reader)
+target_include_directories(cut PRIVATE Analyzer)
 
-add_subdirectory(Reader)
 add_subdirectory(Meta)
 add_subdirectory(Queue)
+add_subdirectory(Reader)
+add_subdirectory(Analyzer)
 
 install(TARGETS cut)

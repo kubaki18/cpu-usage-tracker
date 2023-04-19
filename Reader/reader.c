@@ -1,5 +1,7 @@
 #include "reader.h"
 
+bool reader_running = true;
+
 void *InitReader(void *attr) {
     FILE *stat_file;
     char buffer[BUFFER_SIZE];
@@ -9,7 +11,7 @@ void *InitReader(void *attr) {
 
     times = malloc(sizeof(CoreTimes) * cpu_core_count);
 
-    while (1) {
+    while (reader_running) {
         stat_file = fopen(PATH_TO_STAT_FILE, "r");
         assert(NULL != stat_file);
 
@@ -23,10 +25,11 @@ void *InitReader(void *attr) {
             times[i] = ReadTimesForCurrentCore(stat_file);
         }
 
-        Enqueue_CPUSnapshot(*times);
+        Enqueue_CPUSnapshot(times);
 
         fclose(stat_file);
-        break;
+        printf("%llu\n", Front_CPUSnapshot()[0].user);
+        usleep(100000);
     }
 
     free(times);
@@ -71,11 +74,4 @@ CoreTimes ReadTimesForCurrentCore(FILE *stat_file) {
     // sscanf() will return number of assigned values, which in this case must always be 8 if the function call was successful
     assert(8 == status);
     return times;
-}
-
-void PrintCores(CoreTimes *core_times) {
-    printf("%llu %llu %llu %llu %llu %llu %llu %llu\n" ,
-        core_times->user, core_times->nice, core_times->system, 
-        core_times->idle, core_times->iowait, core_times->irq, 
-        core_times->softirq, core_times->steal);
 }
