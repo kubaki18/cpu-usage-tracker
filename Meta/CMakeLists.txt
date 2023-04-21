@@ -1,1 +1,2 @@
-target_sources(cut PRIVATE cpu_info.h cpu_info.c)
+add_library(CPUInfo cpu_info.c cpu_info.h)
+target_link_libraries(cut PRIVATE CPUInfo)

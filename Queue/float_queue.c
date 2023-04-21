@@ -5,7 +5,7 @@ Queue *float_queue;
 static float **copied_float;
 
 void *copy_Float(void *input) {
-    copied_float = realloc(NULL, sizeof(float *));
+    copied_float = realloc(NULL, sizeof(*copied_float));
     *copied_float = *(float **)input;
     return copied_float;
 }
@@ -21,8 +21,9 @@ Queue *CreateQueue_Float() {
 }
 
 void DeleteQueue_Float() {
+    if (float_queue->current_length != 0)
+        free(copied_float);
     DeleteQueue(float_queue);
-    free(copied_float);
 }
 
 void Enqueue_Float(float *input) {

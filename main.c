@@ -7,7 +7,6 @@
 #include "cpu_snapshot_queue.h"
 #include "float_queue.h"
 #include "queue.h"
-#include "string_queue.h"
 #include "reader.h"
 #include "analyzer.h"
 #include "printer.h"

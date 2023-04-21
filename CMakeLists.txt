@@ -9,9 +9,11 @@ elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU")
     add_compile_options(-Wall -Wextra)
 endif()
 
+enable_testing()
 
 add_executable(cut)
 target_sources(cut PRIVATE main.c)
+
 
 target_include_directories(cut PRIVATE Meta)
 target_include_directories(cut PRIVATE Queue)
@@ -24,5 +26,7 @@ add_subdirectory(Queue)
 add_subdirectory(Reader)
 add_subdirectory(Analyzer)
 add_subdirectory(Printer)
+
+add_subdirectory(Tests)
 
 install(TARGETS cut)

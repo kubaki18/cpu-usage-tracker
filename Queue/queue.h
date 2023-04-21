@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <semaphore.h>
 
-#include "cpu_info.h"
+#include "../Meta/cpu_info.h"
+
 
 typedef struct {
     unsigned int max_length;

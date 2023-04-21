@@ -21,8 +21,9 @@ Queue *CreateQueue_CPUSnapshot() {
 }
 
 void DeleteQueue_CPUSnapshot() {
+    if (cpu_snapshot_queue->current_length != 0)
+        free(copied_snapshot);
     DeleteQueue(cpu_snapshot_queue);
-    free(copied_snapshot);
 }
 
 void Enqueue_CPUSnapshot(CoreTimes *snapshot) {

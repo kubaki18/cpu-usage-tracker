@@ -1,7 +1,6 @@
 #ifndef CPU_SNAPSHOT_QUEUE_H
 #define CPU_SNAPSHOT_QUEUE_H
 
-#include "cpu_info.h"
 #include "queue.h"
 
 #define MAX_CPU_SNAPSHOT_QUEUE_LENGTH 5
