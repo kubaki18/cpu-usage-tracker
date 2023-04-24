@@ -1,11 +1,13 @@
 #include "reader.h"
 
-bool reader_running = true;
+volatile bool reader_running = true;
 
 void *InitReader(void *attr) {
     FILE *stat_file;
     char buffer[BUFFER_SIZE];
     CoreTimes *times;
+    WatchdogMessage *message = malloc(sizeof(*message));
+    message->threadID = READER_THREAD_ID;
 
     assert(NULL == attr);
 
@@ -28,10 +30,12 @@ void *InitReader(void *attr) {
         Enqueue_CPUSnapshot(times);
 
         fclose(stat_file);
-        usleep(50000);
+        Enqueue_WatchdogMessage(message);
+        usleep(500000);
     }
 
     free(times);
+    free(message);
     return NULL;
 }
 

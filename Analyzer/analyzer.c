@@ -1,6 +1,6 @@
 #include "analyzer.h"
 
-bool analyzer_running = true;
+volatile bool analyzer_running = true;
 
 void *InitAnalyzer(void *attr) {
     CoreTimes *times;
@@ -11,6 +11,9 @@ void *InitAnalyzer(void *attr) {
     float *percentage;
 
     bool first_iteration = true;
+
+    WatchdogMessage *message = malloc(sizeof(*message));
+    message->threadID = ANALYZER_THREAD_ID;
 
     assert(NULL == attr);
 
@@ -46,7 +49,10 @@ void *InitAnalyzer(void *attr) {
         }
 
         Enqueue_Float(percentage);
+        Enqueue_WatchdogMessage(message);
     }
 
+    free(times);
+    free(message);
     return NULL;
 }

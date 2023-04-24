@@ -8,9 +8,10 @@
 
 #include "cpu_snapshot_queue.h"
 #include "float_queue.h"
+#include "watchdog_message_queue.h"
 #include "cpu_info.h"
 
-extern bool analyzer_running;
+extern volatile bool analyzer_running;
 
 void *InitAnalyzer(void *);
 

@@ -9,7 +9,7 @@ extern Queue *cpu_snapshot_queue;
 
 void *copy_CPUSnapshot(void *);
 void destroy_CPUSnapshot(void *);
-Queue *CreateQueue_CPUSnapshot();
+Queue *CreateQueue_CPUSnapshot(void);
 void DeleteQueue_CPUSnapshot(void);
 void Enqueue_CPUSnapshot(CoreTimes *);
 void Dequeue_CPUSnapshot(void);

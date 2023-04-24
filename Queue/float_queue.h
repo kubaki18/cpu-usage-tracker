@@ -9,7 +9,7 @@ extern Queue *float_queue;
 
 void *copy_Float(void *);
 void destroy_Float(void *);
-Queue *CreateQueue_Float();
+Queue *CreateQueue_Float(void);
 void DeleteQueue_Float(void);
 void Enqueue_Float(float*);
 void Dequeue_Float(void);

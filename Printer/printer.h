@@ -8,8 +8,9 @@
 
 #include "float_queue.h"
 #include "cpu_info.h"
+#include "watchdog_message_queue.h"
 
-extern bool printer_running;
+extern volatile bool printer_running;
 
 void *InitPrinter(void *);
 

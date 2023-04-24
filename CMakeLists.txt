@@ -12,20 +12,21 @@ endif()
 enable_testing()
 
 add_executable(cut)
-target_sources(cut PRIVATE main.c)
-
 
 target_include_directories(cut PRIVATE Meta)
 target_include_directories(cut PRIVATE Queue)
 target_include_directories(cut PRIVATE Reader)
 target_include_directories(cut PRIVATE Analyzer)
 target_include_directories(cut PRIVATE Printer)
+target_include_directories(cut PRIVATE Watchdog)
 
+target_sources(cut PRIVATE main.c)
 add_subdirectory(Meta)
 add_subdirectory(Queue)
 add_subdirectory(Reader)
 add_subdirectory(Analyzer)
 add_subdirectory(Printer)
+add_subdirectory(Watchdog)
 
 add_subdirectory(Tests)
 

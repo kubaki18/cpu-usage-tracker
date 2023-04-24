@@ -14,7 +14,7 @@ void destroy_Float(void *target) {
     free(target);
 }
 
-Queue *CreateQueue_Float() {
+Queue *CreateQueue_Float(void) {
     Queue *new_queue = CreateQueue(MAX_FLOAT_QUEUE_LENGTH, 
             &copy_Float, &destroy_Float);
     return new_queue;
