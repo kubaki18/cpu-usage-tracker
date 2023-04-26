@@ -1,5 +1,5 @@
 #include "watchdog.h"
-#include <time.h>
+#include <signal.h>
 
 static bool watchdog_running = true;
 
@@ -10,8 +10,15 @@ void ShutDownThreads(void) {
     watchdog_running = false;
 }
 
+static void HandleSignal(int sig) {
+    assert(SIGTERM == sig || SIGINT == sig);
+    ShutDownThreads();
+}
+
 
 void *InitWatchdog(void *attr) {
+    signal(SIGTERM, HandleSignal);
+    signal(SIGINT, HandleSignal);
     clock_t seconds_t, printer_t = clock(), analyzer_t = clock(), reader_t = clock();
     char which_thread = 0;
     LoggerMessage message;

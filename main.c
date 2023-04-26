@@ -2,6 +2,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <signal.h>
 
 #include "cpu_info.h"
 #include "cpu_snapshot_queue.h"
@@ -15,8 +16,8 @@
 #include "watchdog.h"
 #include "logger.h"
 
-
 int main(void) {
+
     pthread_t reader, analyzer, printer, watchdog, logger;
 
     cpu_core_count = CountCPUCores();

@@ -6,6 +6,7 @@
 #include <pthread.h>
 #include <time.h>
 #include <stdbool.h>
+#include <signal.h>
 
 #include "printer.h"
 #include "analyzer.h"
