@@ -10,7 +10,9 @@
 #include "printer.h"
 #include "analyzer.h"
 #include "reader.h"
+#include "logger.h"
 #include "watchdog_message_queue.h"
+#include "logger_message_queue.h"
 
 void ShutDownThreads(void);
 void *InitWatchdog(void *);

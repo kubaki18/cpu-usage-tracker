@@ -1,16 +1,20 @@
 #include "watchdog.h"
 #include <time.h>
 
+static bool watchdog_running = true;
+
 void ShutDownThreads(void) {
     printer_running = false;
     analyzer_running = false;
     reader_running = false;
+    watchdog_running = false;
 }
+
 
 void *InitWatchdog(void *attr) {
     clock_t seconds_t, printer_t = clock(), analyzer_t = clock(), reader_t = clock();
     char which_thread = 0;
-    bool watchdog_running = true;
+    LoggerMessage message;
     assert(NULL == attr);
     while (watchdog_running) {
         usleep(100000);
@@ -34,12 +38,23 @@ void *InitWatchdog(void *attr) {
                 break;
         }
         seconds_t = clock();
-        if ((seconds_t - reader_t) * 1000 / (double)CLOCKS_PER_SEC >= 2
-                || (seconds_t - analyzer_t) * 1000 / (double)CLOCKS_PER_SEC >= 2
-                || (seconds_t - printer_t) * 1000 / (double)CLOCKS_PER_SEC >= 2) {
+        if ((seconds_t - reader_t) * 1000 / (double)CLOCKS_PER_SEC >= 2) {
+            strcpy(message.context, "Watchdog: Reader not responding\n");
+            Enqueue_LoggerMessage(&message);
             ShutDownThreads();
-            watchdog_running = false;
+        }
+        if ((seconds_t - analyzer_t) * 1000 / (double)CLOCKS_PER_SEC >= 2) {
+            strcpy(message.context, "Watchdog: Analyzer not responding\n");
+            Enqueue_LoggerMessage(&message);
+            ShutDownThreads();
+        }
+        if ((seconds_t - printer_t) * 1000 / (double)CLOCKS_PER_SEC >= 2) {
+            strcpy(message.context, "Watchdog: Printer not responding\n");
+            Enqueue_LoggerMessage(&message);
+            ShutDownThreads();
         }
     }
+    sleep(2);
+    logger_running = false;
     return NULL;
 }

@@ -7,12 +7,15 @@ void *InitReader(void *attr) {
     char buffer[BUFFER_SIZE];
     CoreTimes *times;
     WatchdogMessage *message = malloc(sizeof(*message));
+    LoggerMessage log_message;
     message->threadID = READER_THREAD_ID;
 
     assert(NULL == attr);
 
     times = malloc(sizeof(CoreTimes) * cpu_core_count);
 
+    strcpy(log_message.context, "Reader: Entering while loop\n");
+    Enqueue_LoggerMessage(&log_message);
     while (reader_running) {
         stat_file = fopen(PATH_TO_STAT_FILE, "r");
         assert(NULL != stat_file);
@@ -27,13 +30,21 @@ void *InitReader(void *attr) {
             times[i] = ReadTimesForCurrentCore(stat_file);
         }
 
+        strcpy(log_message.context, "Reader: Enqueuing CPU Snapshot\n");
+        Enqueue_LoggerMessage(&log_message);
+
         Enqueue_CPUSnapshot(times);
 
         fclose(stat_file);
+
+        strcpy(log_message.context, "Reader: Enqueuing Watchdog Message\n");
+        Enqueue_LoggerMessage(&log_message);
         Enqueue_WatchdogMessage(message);
         usleep(500000);
     }
 
+    strcpy(log_message.context, "Reader: Freeing pointers\n");
+    Enqueue_LoggerMessage(&log_message);
     free(times);
     free(message);
     return NULL;
